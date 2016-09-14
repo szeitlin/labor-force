@@ -24,11 +24,12 @@ class TestCreateBunch(unittest.TestCase):
         mybunch = create_bunch(meta, train, test)
         self.assertTrue(isinstance(mybunch.data, pd.DataFrame))
         self.assertTrue(isinstance(mybunch.data_test, pd.DataFrame))
-        self.assertTrue(isinstance(mybunch.target, pd.DataFrame))
-        self.assertTrue(isinstance(mybunch.target_test, pd.DataFrame))
+        self.assertTrue(isinstance(mybunch.target, pd.Series))
+        self.assertTrue(isinstance(mybunch.target_test, pd.Series))
         self.assertTrue(isinstance(mybunch.target_names, list))
         self.assertTrue(isinstance(mybunch.feature_names, list))
-        self.assertTrue(isinstance(mybunch.categorical_features, list))
+        self.assertGreater(len(mybunch.categorical_features), 1)
+        self.assertTrue(isinstance(mybunch.categorical_features, dict))
 
 if '__name__'=='__main__':
     unittest.main()

@@ -22,8 +22,8 @@ def load_files(root='data'):
     with open(os.path.join(root, 'meta.json'), 'r') as f:
         meta = json.load(f)
 
-    train = pd.read_csv(os.path.join(root, 'training_df.csv'))
-    test = pd.read_csv(os.path.join(root, 'testing_df.csv'))
+    train = pd.read_csv(os.path.join(root, 'training_df.csv'), index_col=0)
+    test = pd.read_csv(os.path.join(root, 'testing_df.csv'), index_col=0)
 
     return meta, train, test
 
@@ -35,6 +35,7 @@ def create_bunch(meta, train, test, target='income'):
         :param meta: json
         :param train: pandas dataframe
         :param test: pandas dataframe
+        # :param names: list of str (column names) todo: add this
 
         :returns: an sklearn Bunch object
 
@@ -46,10 +47,10 @@ def create_bunch(meta, train, test, target='income'):
 
     #following the tutorial, I hate doing it this way - todo: refactor this to use target name
     return Bunch(
-        data = train[names[:-1]],
-        target = train[names[-1]],
-        data_test = test[names[:-1]],
-        target_test = test[names[-1]],
+        data = train.iloc[:, :-1], #all but the last column
+        target = train.iloc[:, -1], #only the last column
+        data_test = test.iloc[:, :-1],
+        target_test = test.iloc[:, -1],
         target_names = meta['target_names'],
         feature_names = meta['feature_names'],
         categorical_features = meta['categorical_features'],
