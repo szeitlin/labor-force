@@ -47,10 +47,10 @@ def create_bunch(meta, train, test, target='income'):
 
     #following the tutorial, I hate doing it this way - todo: refactor this to use target name
     return Bunch(
-        data = train.iloc[:, :-1], #all but the last column
-        target = train.iloc[:, -1], #only the last column
-        data_test = test.iloc[:, :-1],
-        target_test = test.iloc[:, -1],
+        train_data = train.iloc[:, :-1], #all but the last column
+        train_target = train.iloc[:, -1], #only the last column
+        test_data = test.iloc[:, :-1],
+        test_target = test.iloc[:, -1],
         target_names = meta['target_names'],
         feature_names = meta['feature_names'],
         categorical_features = meta['categorical_features'],

@@ -19,6 +19,6 @@ class TestImputeMultipleCategorical(unittest.TestCase):
         """
         pass
 
-    
+
 
 
